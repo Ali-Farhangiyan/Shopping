@@ -1,7 +1,10 @@
 ﻿
 
+using Domain.Entites.Attributes;
+
 namespace Domain.Entites.Products
 {
+    [AuditTable]
     public class Category
     {
         public int Id { get; set; }

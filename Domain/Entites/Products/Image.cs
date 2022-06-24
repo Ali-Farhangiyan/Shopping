@@ -1,5 +1,8 @@
-﻿namespace Domain.Entites.Products
+﻿using Domain.Entites.Attributes;
+
+namespace Domain.Entites.Products
 {
+    [AuditTable]
     public class Image
     {
         public int Id { get; set; }

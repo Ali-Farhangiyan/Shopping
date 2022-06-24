@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
+using Infrastructure.IdentityConfig;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,11 +10,20 @@ builder.Services.AddControllersWithViews();
 
 
 # region ConncetionString
+// For Database Context
 builder.Services.AddDbContext<DatabaseContext>(option =>
 {
     option.UseSqlServer(builder.Configuration["ConnectionString:DataBaseConnection"]);
 });
+
+
 # endregion
+
+builder.Services.AddIdentityService(builder.Configuration);
+
+
+
+
 
 var app = builder.Build();
 
