@@ -1,3 +1,6 @@
+using Application.Interfaces;
+using Application.Services.CategoryServices.FacadeCategory;
+using Infrastructure.MappingProfiles;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
@@ -13,6 +16,11 @@ builder.Services.AddDbContext<DatabaseContext>(option =>
     option.UseSqlServer(builder.Configuration["ConnectionString:DataBaseConnection"]);
 });
 # endregion
+
+builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

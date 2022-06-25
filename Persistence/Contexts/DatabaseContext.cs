@@ -24,6 +24,8 @@ namespace Persistence.Contexts
 
         public DatabaseContext(DbContextOptions<DatabaseContext> Option) : base(Option) { }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
@@ -91,6 +93,43 @@ namespace Persistence.Contexts
                 }
             }
             return base.SaveChanges();
+        }
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            var modifiedEntites = ChangeTracker.Entries()
+                .Where(m => m.State == EntityState.Modified || m.State == EntityState.Added || m.State == EntityState.Deleted);
+
+            foreach (var item in modifiedEntites)
+            {
+                var entityType = item.Context.Model.FindEntityType(item.Entity.GetType());
+
+
+                if (entityType is not null)
+                {
+                    var inserted = entityType.FindProperty("InsertTime");
+                    var updated = entityType.FindProperty("UpdateTime");
+                    var RemoveTime = entityType.FindProperty("RemoveTime");
+                    var IsRemoved = entityType.FindProperty("IsRemoved");
+
+                    if (item.State == EntityState.Added && inserted != null)
+                    {
+                        item.Property("InsertTime").CurrentValue = DateTime.Now;
+                    }
+
+                    if (item.State == EntityState.Modified && updated != null)
+                    {
+                        item.Property("UpdateTime").CurrentValue = DateTime.Now;
+                    }
+
+                    if (item.State == EntityState.Deleted && RemoveTime != null && IsRemoved != null)
+                    {
+                        item.Property("RemoveTime").CurrentValue = DateTime.Now;
+                        item.Property("IsRemoved").CurrentValue = true;
+                        item.State = EntityState.Modified;
+                    }
+                }
+            }
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
     }

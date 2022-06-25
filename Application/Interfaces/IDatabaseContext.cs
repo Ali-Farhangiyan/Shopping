@@ -20,5 +20,6 @@ namespace Application.Interfaces
 
 
         int SaveChanges();
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
     }
 }

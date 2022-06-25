@@ -15,19 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persistences", "Persistence
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Persentations", "Persentations", "{D6ED4055-2A3B-4BEF-A76B-230F6FE7749F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{EA0642AC-62F1-495A-A123-B6BDAB4BC202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{EA0642AC-62F1-495A-A123-B6BDAB4BC202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{C14C4BE8-0C68-4A93-B324-06434BD0DFDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{C14C4BE8-0C68-4A93-B324-06434BD0DFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{84944841-BF3F-4D17-AAD5-512D2A5B09E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{84944841-BF3F-4D17-AAD5-512D2A5B09E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingUI", "ShoppingUI\ShoppingUI.csproj", "{13062522-E73E-432C-BA86-E06195AA0EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingUI", "ShoppingUI\ShoppingUI.csproj", "{13062522-E73E-432C-BA86-E06195AA0EF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{D40600FC-6210-4CD3-A5C7-29C0EF0DBE70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{D40600FC-6210-4CD3-A5C7-29C0EF0DBE70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticFiles", "StaticFiles\StaticFiles.csproj", "{EFBC0B0D-63C3-4110-8743-F4997BA3EECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticFiles", "StaticFiles\StaticFiles.csproj", "{EFBC0B0D-63C3-4110-8743-F4997BA3EECE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{C811511B-F650-47AB-9E53-E1003C5B7859}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{C811511B-F650-47AB-9E53-E1003C5B7859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

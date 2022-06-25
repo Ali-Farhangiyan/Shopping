@@ -18,7 +18,7 @@ namespace Persistence.EntityConfigurations.CategoryConfigurations
 
             
 
-            builder.HasOne(p => p.ParentCategory).WithOne().OnDelete(DeleteBehavior.NoAction);
+            
         }
     }
 }
