@@ -30,42 +30,27 @@ namespace Application.Services.CategoryServices.FacadeCategory
             this.db = db;
             this.mapper = mapper;
         }
+
+
         private IAddNewCategoryService addNewCategoryService;
-        public IAddNewCategoryService AddNewCategory
-        {
-            get
-            {
-                return addNewCategoryService = addNewCategoryService ?? new AddNewCategoryService(db, mapper);
-            }
-        }
+        public IAddNewCategoryService AddNewCategory =>
+            addNewCategoryService ?? new AddNewCategoryService(db, mapper);
+
 
         private IEditCategoryService editCategoryService;
-        public IEditCategoryService EditCategory
-        {
-            get
-            {
-                return editCategoryService = editCategoryService ?? new EditCategoryService(db, mapper);
-            }
-        }
+        public IEditCategoryService EditCategory =>
+            editCategoryService ?? new EditCategoryService(db, mapper);
+
 
         private IGetCategories getCategories;
 
+        public IGetCategories GetAllCategories =>
+            getCategories ?? new GetCategories.GetCategories(db, mapper);
 
-        public IGetCategories GetAllCategories
-        {
-            get
-            {
-                return getCategories = getCategories ?? new GetCategories.GetCategories(db, mapper);
-            }
-        }
 
         private IDeleteCategoryService deleteCategoryService;
-        public IDeleteCategoryService DeleteCategory 
-        {
-            get
-            {
-                return deleteCategoryService = deleteCategoryService ?? new DeleteCategoryService(db, mapper);
-            }
-        } 
+        public IDeleteCategoryService DeleteCategory => 
+            deleteCategoryService ?? new DeleteCategoryService(db, mapper);
+
     }
 }

@@ -1,0 +1,37 @@
+﻿@page
+@model Admin.Pages.Brands.IndexModel
+@{
+}
+
+<a asp-page="Create" class="" >Create </a>
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id </th>
+                    <th>Name</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in @Model.GetBrands)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        
+                        <td>
+                            <a asp-page="Edit" class="" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="Index" class="" asp-route-id="@item.Id">List Childs </a> |
+                            <a asp-page="Delete" class="" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

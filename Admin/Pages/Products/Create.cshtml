@@ -1,0 +1,335 @@
+﻿@page
+@model Admin.Pages.Products.CreateModel
+@{
+}
+<link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+
+
+<div class="container">
+    <form method="post" asp-antiforgery="true" id="form">
+
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Data.Name"></label>
+                    <input class="form-control" asp-for="Data.Name" id="Name"/>
+                    <span asp-validation-for="Data.Name" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Data.Slug"></label>
+                    <input class="form-control" asp-for="Data.Slug" id="Slug" />
+                    <span asp-validation-for="Data.Slug" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Data.Price"></label>
+                    <input type="number" class="form-control" asp-for="Data.Price" id="Price" />
+                    <span asp-validation-for="Data.Price" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Data.MetaTitle"></label>
+                    <input class="form-control" asp-for="Data.MetaTitle" id="MetaTitle" />
+                    <span asp-validation-for="Data.MetaTitle" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+           <div class="col-12">
+                <div class="form-group">
+                    <label class="form-label" asp-for="Data.MetaDescription"></label>
+                    <input class="form-control" asp-for="Data.MetaDescription" id="MetaDescription" />
+                    <span asp-validation-for="Data.MetaDescription" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <label class="form-label">Select Category</label>
+                    <select id="CategoryId" asp-items="Model.GetCategories" class="form-control select-category"></select>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <a href="/categories/create" class="btn-primary btn">+</a>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <label class="form-label">Select Category</label>
+                    <select id="BrandId" asp-items="Model.GetBrands" class="form-control select-brands"></select>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <a href="/brands/create" class="btn-primary btn">+</a>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group">
+                    <label class="form-label" for="tagsId">Select Tags</label>
+                    <select asp-items="Model.GetTags" id="tagsId" multiple="multiple" class="form-control select-tags"></select>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <a href="/tags/create" class="btn-primary btn">+</a>
+            </div>
+       </div>
+        
+       <br /><br />
+
+       <div class="row">
+           <div class="col-12">
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Default file input example</label>
+                  <input class="form-control" type="file" multiple accept="*/image" id="formFile">
+                </div>
+           </div>
+       </div>
+            
+       <br /><br />
+
+       <div class="row">
+           <div class="card col-md-12">
+                            <div class="card-header col-md-12 row">
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput"> Group </label>
+                                        <input type="text" class="form-control" id="txtGroup" placeholder="Group" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput"> Key </label>
+                                        <input type="text" class="form-control" id="txtDisplayName" placeholder="Key" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="basicInput">  Value </label>
+                                        <input type="text" class="form-control" id="txtValue" placeholder="Value" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-2 col-lg-6 col-md-12 mb-1">
+                                    <fieldset class="form-group">
+                                        <br />
+                                        <a class="btn btn-success" id="btnAddFeatures">Add</a>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="card-body col-md-12">
+                                <table id="tbl_Features" class="col-md-12 table table-bordered table-hover  table-condensed table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Group
+                                            </th>
+                                            <th>
+                                                Key 
+                                            </th>
+                                            <th>
+                                                Value 
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+       </div>
+
+
+       <br /><br />
+
+       <div class="row">
+           <div class="col-12">
+               <label>Description</label>
+                <textarea id="Description" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <br /><br />
+
+        <div class="form-group">
+            <input type="submit" class="btn-success btn" value="Add Product" />
+        </div>
+
+        <div id="iran" class="btn-primary btn" >Click Me</div>
+
+    </form>
+</div>
+
+@section Scripts{
+
+    <script src="~/lib/select2/js/select2.full.min.js"></script>
+
+
+    <script>
+        
+        $(document).ready(function() {
+            $('.select-category').select2();
+
+            $('.select-tags').select2({
+                placeholder:'select tags...',
+            });
+
+            $('.select-brands').select2({
+                placeholder:'select brands...',
+            });
+
+        });
+
+    </script>
+
+
+
+    <script>
+
+        $("#btnAddFeatures").on("click", function () {
+            var txtDisplayName = $("#txtDisplayName").val();
+            var txtValue = $("#txtValue").val();
+            var txtGroup = $("#txtGroup").val();
+
+            if (txtDisplayName == "" || txtValue == "" || txtGroup == "") {
+                
+            }
+            else {
+                $('#tbl_Features tbody').append('<tr><td>' + txtGroup + '</td>  <td>' + txtDisplayName + '</td>  <td>' + txtValue + '</td> <td> <a class="idFeatures btnDelete btn btn-danger"> Remove </a> </td> </tr>');
+                $("#txtDisplayName").val('');
+                $("#txtValue").val('');
+            }
+        });
+
+        $("#tbl_Features").on('click', '.idFeatures', function () {
+            $(this).closest('tr').remove();
+        });
+
+
+        // Form 
+        $("#form").submit(function(e){
+            e.preventDefault();
+            var data = new FormData();
+
+            data.append("Name",$("#Name").val());
+            data.append("Slug",$("#Slug").val());
+            data.append("MetaTitle",$("#MetaTitle").val());
+            data.append("MetaDescription",$("#MetaDescription").val());
+            data.append("CategoryId",$("#CategoryId").val());
+            data.append("BrandId",$("#BrandId").val());
+            data.append("Description",$("#Description").val());
+            data.append("Price",$("#Price").val());
+
+
+            // for get tags
+            let tagsSelect  = $(".select-tags").select2('data');
+            let dataTags = tagsSelect.map(function(tag){
+                return {
+                    Id : tag.id,
+                    Name : tag.text
+                }
+            });
+
+            $.each(dataTags,function(i,val){
+                data.append(`Tags[${i}].Name`,val.Name);
+            });
+
+            // for get images 
+            var imagesSelected = $("#formFile")[0];
+            if(imagesSelected.files.length > 0){
+                for(let i = 0; i < imagesSelected.files.length; i++){
+
+                    data.append(`images-${i}`, imagesSelected.files[i]);
+                }
+            }
+
+
+            var dataFeaturesViewModel = $('#tbl_Features tr:gt(0)').map(function () {
+                return {
+                    Group: $(this.cells[0]).text(),
+                    Key: $(this.cells[1]).text(),
+                    Value: $(this.cells[2]).text(),
+                };
+            }).get();
+
+            $.each(dataFeaturesViewModel, function (i, val) {
+                data.append(`Features[${i}].Group`, val.Group);
+                data.append(`Features[${i}].Key`, val.Key);
+                data.append(`Features[${i}].Value`, val.Value);
+            });
+
+            $.ajax({
+                url:"/products/create",
+                type:"POST",
+                data:data,
+                contentType:false,
+                processData:false,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                success:function(result){
+                    if(result.isSuccess == true){
+                        alert("Product successful registred");
+                    }else{
+                        alert("fail");
+                    };
+                },
+                error:function(){
+                    alert("Error");
+                },
+
+            })
+
+
+        });
+        
+
+
+
+
+
+        $("#iran").on('click',function(){
+
+        });
+
+        
+    
+    </script>
+}

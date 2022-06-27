@@ -1,0 +1,74 @@
+﻿@page
+@model Admin.Pages.Tags.IndexModel
+@{
+}
+<a asp-page="Create" class="" >Create </a>
+
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id </th>
+                    <th>Name</th>
+                    <th>Number of Products</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in @Model.ListTags)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.IdOfProducts.Count</td>
+                        <td>
+                            <a asp-page="Edit" class="" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="Index" class="" asp-route-id="@item.Id">List Childs </a> |
+                            <a asp-page="Delete" class="" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@{
+    var prev = Model.ListTags.HasPrevPage ? "" : "disabled";
+    var next = Model.ListTags.HasNextPage ? "" : "disabled";
+    int page = Model.ListTags.PageIndex;
+
+}
+
+
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item @prev">
+        <a asp-page="Index" asp-route-pageIndex="@(page - 1)" class="page-link">Prev</a>
+    </li>
+
+    @for (var i = 1; i <= @Model.ListTags.TotalPage; i++)
+    {
+            @if(page == i)
+            {
+                <li class="page-item active">
+                    <span class="page-link">@i</span>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-page="Index" asp-route-pageIndex="@i" class="page-link">@i</a> 
+                </li> 
+            }        
+    }
+
+    <li class="page-item @next">
+        <a asp-page="Index" asp-route-pageIndex="@(page + 1)" class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>
