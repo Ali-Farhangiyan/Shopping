@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.GetBrandsProduct
+namespace Application.Services.BrandServices.GetBrandsProduct
 {
     public interface IGetBrandsProductService
     {

@@ -16,7 +16,7 @@ namespace Admin.Pages.Products
         }
 
         public PaginatedList<ShowProductDto> GetAllProducts { get; set; }
-        public async Task OnGet(int pageSize=1,int pageIndex=1)
+        public async Task OnGet(int pageSize=10,int pageIndex=1)
         {
             GetAllProducts = await productService.ShowProducts.ShowProductsAsync(pageSize, pageIndex);
         }

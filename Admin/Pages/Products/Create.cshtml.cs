@@ -65,8 +65,9 @@ namespace Admin.Pages.Products
 
             Data.Images = images;
             var data = await productService.AddProduct.AddProductAsync(Data);
-            if (data)
+            if (data == true)
             {
+                
                 return RedirectToPage("Index");
             }
 

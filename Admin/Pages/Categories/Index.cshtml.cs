@@ -17,7 +17,7 @@ namespace Admin.Pages.Categories
         }
 
         public PaginatedList<CategoryDto> CategoryList { get; set; }
-        public async Task OnGet(int? Id, int pageSize = 1, int pageIndex = 1)
+        public async Task OnGet(int? Id, int pageSize = 10, int pageIndex = 1)
         {
             CategoryList = await categoryService.GetAllCategories.GetCategoriesAsync(Id,pageSize,pageIndex);
         }

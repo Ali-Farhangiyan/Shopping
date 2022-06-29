@@ -1,0 +1,109 @@
+﻿@using Application.Pagination
+@using Application.Services.ProductServices.PLPProduct
+@model PaginatedList<PLPProductDto>
+
+@{
+    var queries = Context.Request.Query.ToList();
+    var brandIds = Context.Request.Query.Where(p => p.Key == "BrandId").ToArray();
+    var sortType = Context.Request.Query["SortType"].ToString();
+    var searchKey = Context.Request.Query["SearchKey"].ToString();
+
+}
+
+<h1>Product List</h1>
+<hr />
+<br />
+
+<div class="row">
+    <div class="col-sm-6">
+        <form asp-action="Index" method="get" >
+            <div class="form-group">
+                <input class="form-control mr-2 p-2" type="text" name="SearchKey" />
+                <input type="submit" class="btn btn-outline-success" value="Search" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link " aria-current="page"  asp-action="Index"  asp-route-searchKey="@searchKey" asp-route-SortType="1" >Cheapest</a>
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" aria-current="page"   asp-action="Index"  asp-route-searchKey="@searchKey"  asp-route-SortType="2" >MostExpensive</a>
+
+  </li>
+  <li class="nav-item">
+        <a class="nav-link" aria-current="page"  asp-action="Index"  asp-route-searchKey="@searchKey" asp-route-SortType="3" >Newest</a>
+
+  </li>
+</ul>
+
+<div class="container">
+    <div class="row mt-3 mb-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+               <a href="/product/@item.Slug" style="outline:none;" >
+                <div class="card" >
+                  <img class="card-img-top" src="@item.ImageUrl" height="70%" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">@item.ProductName</h5>
+                    <p class="card-text text-danger">@item.Price.ToString("n0") $</p>
+                
+                  </div>
+                </div>
+                </a>
+            </div>
+
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 border p-5 mt-3 mb-3">
+        <h3>Brand Filter</h3>
+        @await Component.InvokeAsync("BrandFilter")
+    </div>
+</div>
+
+
+
+@{
+    var prev = Model.HasPrevPage ? "" : "disabled";
+    var next = Model.HasNextPage ? "" : "disabled";
+    int page = Model.PageIndex;
+
+}
+
+
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item @prev">
+        <a asp-action="Index" asp-route-searchKey="@searchKey" asp-route-sortType="@sortType" asp-route-pageIndex="@(page - 1)" class="page-link">Prev</a>
+    </li>
+
+    @for (var i = 1; i <= @Model.TotalPage; i++)
+    {
+            @if(page == i)
+            {
+                <li class="page-item active">
+                    <span class="page-link">@i</span>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a asp-action="Index" asp-route-searchKey="@searchKey" asp-route-sortType="@sortType" asp-route-pageIndex="@i" class="page-link"
+                        
+                    >@i</a> 
+                </li> 
+            }        
+    }
+
+    <li class="page-item @next">
+        <a asp-action="Index" asp-route-searchKey="@searchKey" asp-route-sortType="@sortType"  asp-route-pageIndex="@(page + 1)" class="page-link">Next</a>
+    </li>
+  </ul>
+</nav>

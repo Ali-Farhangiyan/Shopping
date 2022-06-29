@@ -305,11 +305,7 @@
                 processData:false,
                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
                 success:function(result){
-                    if(result.isSuccess == true){
-                        alert("Product successful registred");
-                    }else{
-                        alert("fail");
-                    };
+                    
                 },
                 error:function(){
                     alert("Error");

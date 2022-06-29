@@ -1,9 +1,11 @@
 ﻿using Application.ImageServices.FacadeImage;
 using Application.Interfaces;
-using Application.Services.GetBrandsProduct;
+using Application.Services.BrandServices.GetBrandsProduct;
 using Application.Services.ProductServices.AddNewProduct;
 using Application.Services.ProductServices.GetCategoriesProduct;
 using Application.Services.ProductServices.GetTagsProduct;
+using Application.Services.ProductServices.PDPProduct;
+using Application.Services.ProductServices.PLPProduct;
 using Application.Services.ProductServices.ShowProducts;
 using AutoMapper;
 using System;
@@ -21,6 +23,9 @@ namespace Application.Services.ProductServices.ProductFacade
         IGetTagsProductService GetTagsProduct { get; }
         IGetBrandsProductService GetBrandsProduct { get; }
         IShowProductsService ShowProducts { get; } 
+        IPLPProductService PLPProducts { get; }
+
+        IPDPProductService PDPProducts { get; }
     }
 
     public class ProductService : IProductService
@@ -60,5 +65,16 @@ namespace Application.Services.ProductServices.ProductFacade
         private IShowProductsService showProducts;
         public IShowProductsService ShowProducts =>
             showProducts ?? new ShowProudctsService(db,imageService);
+
+
+
+        private IPLPProductService pLPProducts;
+        public IPLPProductService PLPProducts =>
+            pLPProducts ?? new PLPProductService(db,imageService);
+
+
+        private IPDPProductService pDPProducts;
+        public IPDPProductService PDPProducts => 
+            pDPProducts ?? new PDPProductService(db,imageService);
     }
 }

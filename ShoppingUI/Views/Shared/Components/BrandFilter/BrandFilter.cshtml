@@ -1,0 +1,47 @@
+﻿@using Application.Services.BrandServices.GetBrandsProduct
+@using System.Text.RegularExpressions
+@model List<BrandDto>
+
+@{
+    Layout = null;
+    var brandid = Context.Request.Query["BrandId"].ToList();
+    var queryStrings = Context.Request.Query.Where(p => p.Key != "BrandId").ToList();
+    var i = 0;
+    string RetrunBrand(int i)
+    {
+        var iran = Regex.Replace("BrandId[]", @"([^a-zA-Z0-9_]|^\s)", string.Empty);
+
+        string s = i.ToString();
+        return $"BrandId[{s}]";
+    }
+}
+
+
+<form asp-action="Index" asp-controller="Product" method="get">
+
+    @foreach (var item in Model)
+    {
+        @if(brandid.Any(p => p == item.Id.ToString()))
+        {
+            <label class="form-check-label  d-block">@item.Name
+                <input type="checkbox" name="BrandId" class="form-check-input" checked value="@item.Id" onclick="submit()"/>
+            </label>
+        }
+        else
+        {
+            <label class="form-check-label  d-block">@item.Name
+                <input type="checkbox" name="BrandId" class="form-check-input" value="@item.Id" onclick="submit()"/>
+            </label>
+        }
+
+        i++;
+
+    }
+
+    @foreach (var queryString in queryStrings)
+        {
+            <input type="hidden" name="@queryString.Key" value="@queryString.Value">
+
+        }
+</form>
+

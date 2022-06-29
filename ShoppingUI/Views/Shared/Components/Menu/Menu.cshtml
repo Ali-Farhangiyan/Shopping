@@ -1,0 +1,82 @@
+﻿@using ShoppingUI.Models.ViewComponents
+@model List<MenuDto>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-dark shadow">
+    <div class="container-fluid">
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content">
+        <div class="hamburger-toggle">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbar-content">
+        <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside">Categories</a>
+            <ul class="dropdown-menu shadow">
+
+                @foreach (var MainCategory in Model.Where(m => m.ParentCategoryId == null))
+                {
+                    <li class="dropend">
+                        <a href="/category/@MainCategory.CategorySlug" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">@MainCategory.Name</a>
+                        <ul class="dropdown-menu shadow">
+                            @foreach (var Sub1 in Model.Where(c => c.ParentCategoryId == MainCategory.Id))
+                            {
+                                <li class="dropend">
+                                    <a href="/category/@Sub1.CategorySlug" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">@Sub1.Name</a>
+                                    <ul class="dropdown-menu dropdown-submenu shadow">
+
+                                         @foreach (var sub2 in Model.Where(c => c.ParentCategoryId == Sub1.Id))
+                                         {
+                                              <li><a class="dropdown-item" href="/category/@sub2.CategorySlug"> @sub2.Name</a></li>
+                                         }
+                                    </ul>
+                                  </li>
+                            }
+                          
+
+                        </ul>
+                      </li>
+                }
+
+              <li class="dropend">
+                <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside">Submenu Right</a>
+                <ul class="dropdown-menu shadow">
+                  <li><a class="dropdown-item" href=""> Second level 1</a></li>
+                  <li><a class="dropdown-item" href=""> Second level 2</a></li>
+                  <li><a class="dropdown-item" href=""> Second level 3</a></li>
+                  <li class="dropend">
+                    <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Let's go deeper!</a>
+                    <ul class="dropdown-menu dropdown-submenu shadow">
+                      <li><a class="dropdown-item" href=""> Third level 1</a></li>
+                      <li><a class="dropdown-item" href=""> Third level 2</a></li>
+                      <li><a class="dropdown-item" href=""> Third level 3</a></li>
+                      <li><a class="dropdown-item" href=""> Third level 4</a></li>
+                      <li><a class="dropdown-item" href=""> Third level 5</a></li>
+                    </ul>
+                  </li>
+                  <li><a class="dropdown-item" href=""> Third level 5</a></li>
+                </ul>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+
+            </ul>
+          </li>
+
+
+        </ul>
+        <form class="d-flex ms-auto">
+            <div class="input-group">
+                <input class="form-control border-0 mr-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary border-0" type="submit">Search</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </nav>

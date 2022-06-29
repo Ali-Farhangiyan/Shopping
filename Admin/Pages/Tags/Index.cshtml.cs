@@ -16,7 +16,7 @@ namespace Admin.Pages.Tags
         }
 
         public PaginatedList<TagDto> ListTags { get; set; }
-        public async Task OnGet(int pageSize = 1,int pageIndex = 1)
+        public async Task OnGet(int pageSize = 10,int pageIndex = 1)
         {
             ListTags =await tagService.GetTag.GetTagsAsync(pageSize, pageIndex);
         }

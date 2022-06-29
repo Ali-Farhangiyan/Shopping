@@ -2,6 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
 using Infrastructure.IdentityConfig;
+using Application.Interfaces;
+using Application.Services.ProductServices.ProductFacade;
+using Application.ImageServices.FacadeImage;
+using Application.Services.CategoryServices.FacadeCategory;
+using Application.Services.TagsServices.TagFacade;
+using Application.Services.BrandServices.BrandFacade;
+using Infrastructure.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +25,17 @@ builder.Services.AddDbContext<DatabaseContext>(option =>
 
 
 # endregion
+
+
+builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IBrandService, BrandService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
 builder.Services.AddIdentityService(builder.Configuration);
 
@@ -41,6 +59,17 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "prducts",
+    pattern: "product/{Slug}",
+    defaults: new {controller="Product", action="Details"}) ;
+
+app.MapControllerRoute(
+    name: "categories",
+    pattern: "category/{CategorySlug}",
+    defaults: new { controller = "Product", action ="Index"}
+    ); 
 
 app.MapControllerRoute(
     name: "default",
