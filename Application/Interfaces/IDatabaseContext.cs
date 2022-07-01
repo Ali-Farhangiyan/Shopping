@@ -1,4 +1,5 @@
-﻿using Domain.Entites.Products;
+﻿using Domain.Entites.Baskets;
+using Domain.Entites.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Application.Interfaces
         DbSet<Feature> Features { get; set; }
         DbSet<Image> Images { get; set; }
         DbSet<Tags> Tags { get; set; }
+        DbSet<Basket> Baskets { get; set; }
+        DbSet<BasketItem> BasketItems { get; set; }
 
 
         int SaveChanges();

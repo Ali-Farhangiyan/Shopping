@@ -1,4 +1,5 @@
-﻿using Domain.Entites.Users;
+﻿using Application.Services.BasketServices.BasketFacade;
+using Domain.Entites.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShoppingUI.Models.ViewModels.Accountig;
@@ -9,11 +10,18 @@ namespace ShoppingUI.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IBasketService basketService;
+        private readonly IConfiguration configuration;
 
-        public AccountController(UserManager<User> userManager,SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager
+            ,SignInManager<User> signInManager
+            ,IBasketService basketService,
+            IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.basketService = basketService;
+            this.configuration = configuration;
         }
 
         public IActionResult Register()
@@ -66,7 +74,7 @@ namespace ShoppingUI.Controllers
 
             await signInManager.SignOutAsync();
             var userLogin = await userManager.FindByEmailAsync(login.UserName);
-
+            
             if(userLogin is null)
             {
                 ViewData["MessageUserName"] = "this username not found!";
@@ -79,16 +87,31 @@ namespace ShoppingUI.Controllers
                 ViewData["MessagePassword"] = "your password was incorrect!";
                 return View(login);
             }
-
+            await TransfretBasketToUser(userLogin.Id);
             return RedirectToAction("Index", "Home");
             
         }
 
-        public async Task<IActionResult> SignOut()
+        public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+
+        private async Task TransfretBasketToUser(string userId)
+        {
+            var buyerCookie = configuration["BuyerCookieName"];
+
+            if (Request.Cookies.ContainsKey(buyerCookie))
+            {
+                var anonymousId = Request.Cookies[buyerCookie];
+
+                await basketService.TransferBasket.ExecuteAsync(anonymousId, userId);
+
+                Response.Cookies.Delete(anonymousId);
+            }
         }
     }
 }

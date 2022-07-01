@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Entites.Attributes;
+using Domain.Entites.Baskets;
 using Domain.Entites.Products;
 using Microsoft.EntityFrameworkCore;
 using Persistence.EntityConfigurations.CategoryConfigurations;
@@ -21,6 +22,8 @@ namespace Persistence.Contexts
         public DbSet<Feature> Features { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;
         public DbSet<Tags> Tags { get; set; } = null!;
+        public DbSet<Basket> Baskets { get; set; } = null!;
+        public DbSet<BasketItem> BasketItems { get; set; } = null!;
 
         public DatabaseContext(DbContextOptions<DatabaseContext> Option) : base(Option) { }
 
@@ -44,6 +47,12 @@ namespace Persistence.Contexts
                         .HasQueryFilter(f => EF.Property<bool>(f, "IsRemoved") == false);
 
             modelBuilder.Entity<Category>()
+                        .HasQueryFilter(f => EF.Property<bool>(f, "IsRemoved") == false);
+
+            modelBuilder.Entity<BasketItem>()
+                        .HasQueryFilter(f => EF.Property<bool>(f, "IsRemoved") == false);
+
+            modelBuilder.Entity<Basket>()
                         .HasQueryFilter(f => EF.Property<bool>(f, "IsRemoved") == false);
 
 

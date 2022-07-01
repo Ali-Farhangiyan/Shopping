@@ -1,0 +1,67 @@
+﻿@using Application.Services.BasketServices.GetOrCreateBasketForUser
+@model BasketDto
+
+<div class="container">
+    <header>
+        <h1>Basket Page</h1>
+        <br />
+        <hr />
+        <br />
+
+    </header>
+    @if(Model is not null)
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                <h4>Number of Products : @Model.BasketItems.Count</h4>
+            </div>
+
+            <div class="col-sm-4">
+                <h4>Total Price : @Model.TotalPrice.ToString("n0")</h4>
+            </div>
+        </div>
+    }
+    
+    
+    <br /><hr /><br />
+    <div class="row">
+        @if(Model is null || Model.BasketItems.Count == 0 )
+        {
+            <h3>Not any item added!!</h3>
+        }
+        else
+        {
+            @foreach (var item in Model.BasketItems)
+            {
+                <div class="col-12">
+                    <div class="card" style="width: 18rem;">
+                      <img src="@item.ImageUrl" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">@item.Price</h5>
+                        <form asp-action="RemoveItems" asp-controller="Basket" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId">
+                            <input type="submit" value="Remove" class="btn btn-danger">
+                        </form>
+
+
+                        <form asp-action="AddQuantites" asp-controller="Basket" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId"> 
+                            <button  class="btn btn-success" onclick="submit()">+</button>
+                        </form>
+
+                        
+                      </div>
+                    </div>
+                </div>
+            }
+        }
+
+        
+
+
+    </div>
+
+
+
+
+</div>

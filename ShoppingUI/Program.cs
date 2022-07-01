@@ -9,6 +9,7 @@ using Application.Services.CategoryServices.FacadeCategory;
 using Application.Services.TagsServices.TagFacade;
 using Application.Services.BrandServices.BrandFacade;
 using Infrastructure.MappingProfiles;
+using Application.Services.BasketServices.BasketFacade;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddDbContext<DatabaseContext>(option =>
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IImageService, ImageService>();
@@ -58,6 +60,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
