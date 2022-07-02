@@ -26,6 +26,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Basket" asp-action="Index">My Basket</a>
                         </li>
@@ -42,8 +44,10 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
 
+
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-route-email="@User.Identity.Name" asp-action="Profile">
+                                <a class="nav-link text-dark" asp-area="Customers" asp-controller="Customer"  asp-action="Index">
                                     @User.Identity.Name
                                 </a>
                             </li>

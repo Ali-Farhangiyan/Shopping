@@ -1,0 +1,115 @@
+﻿@using Application.Services.CustomerServices.AddNewAddress
+@model AddAddressDto
+
+<link href="~/lib/select2/css/select2.css" rel="stylesheet" />
+
+<div class="container">
+    <header>
+        <h1>Add New Address</h1>
+    </header>
+    <br /><hr /><br />
+    <div class="row">
+        <form asp-action="AddAddress" asp-controller="Customer" asp-area="Customers" method="post">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            
+            <div class="form-group">
+                <label asp-for="Street" class="form-label"></label>
+                <input type="text" asp-for="Street" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label class="form-label" asp-for="State"></label>
+                <select class="form-select" asp-for="State"  asp-items="Model.States" id="state"></select>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label class="form-label" asp-for="City"></label>
+                <select class="form-select" asp-for="City"   id="City" ></select>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Street" class="form-label"></label>
+                <input type="text" asp-for="Street" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label asp-for="Allay" class="form-label"></label>
+                <input type="text" asp-for="Allay" class="form-control" />
+                <span asp-validation-for="Allay" class="text-danger"></span>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label asp-for="Plaque" class="form-label"></label>
+                <input type="int" asp-for="Plaque" class="form-control" />
+                <span asp-validation-for="Plaque" class="text-danger"></span>
+            </div>
+            <br />
+
+            <div class="form-group">
+                <label asp-for="PostalCode" class="form-label"></label>
+                <input type="int" asp-for="PostalCode" class="form-control" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <br />
+
+            <div>
+                <input type="submit" class="btn btn-success form-control" value="Add Address" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    
+    <script src="~/lib/select2/js/select2.js"></script>
+
+    <script >
+
+$(document).ready(function() {
+
+    $('#state').select2();
+
+
+        $("#state").on("select2:select", function() {
+
+            let ostanId = $("#state").select2('data');
+            ostanId = ostanId[0].id;
+
+                $("#City").select2({
+                    placeholder: "Select City",
+                    ajax: {
+                        url: "/customers/customer/ShowCities",
+                        contentType: "application/json; charset=utf-8",
+                        data: function () {
+                            var query =
+                            {
+                                ostanId: ostanId,
+                            };
+                            return query;
+                        },
+                        processResults: function (result) {
+                            return {
+                                results: $.map(result, function (item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    };
+                                }),
+                            };
+                        }
+                    }
+                });
+        
+        });//end of on event
+  
+});
+    </script>
+}
