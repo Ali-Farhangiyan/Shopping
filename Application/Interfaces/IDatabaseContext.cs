@@ -1,4 +1,5 @@
 ﻿using Domain.Entites.Baskets;
+using Domain.Entites.Customers;
 using Domain.Entites.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,6 +21,7 @@ namespace Application.Interfaces
         DbSet<Tags> Tags { get; set; }
         DbSet<Basket> Baskets { get; set; }
         DbSet<BasketItem> BasketItems { get; set; }
+        DbSet<Address> Addresses { get; set; }
 
 
         int SaveChanges();

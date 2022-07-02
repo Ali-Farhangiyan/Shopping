@@ -10,6 +10,8 @@ using Application.Services.TagsServices.TagFacade;
 using Application.Services.BrandServices.BrandFacade;
 using Infrastructure.MappingProfiles;
 using Application.Services.BasketServices.BasketFacade;
+using Application.Services.CustomerServices.CustomerFacade;
+using Iran.AspNet.CountryDivisions.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,17 +31,21 @@ builder.Services.AddDbContext<DatabaseContext>(option =>
 
 
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+builder.Services.AddScoped<IIdentityDatabaseContext, IdentityDatabaseContext>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IBasketService, BasketService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 builder.Services.AddIdentityService(builder.Configuration);
+
+builder.Services.AddIranCountryDivisions();
 
 
 
@@ -62,6 +68,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
 
 app.MapControllerRoute(
     name: "prducts",
