@@ -1,7 +1,8 @@
 ﻿using Application.Interfaces;
 using Application.Services.CustomerServices.AddNewAddress;
+using Application.Services.CustomerServices.DivisionCountry;
+using Application.Services.CustomerServices.GetAddress;
 using Application.Services.CustomerServices.GetInfo;
-using Application.Services.CustomerServices.ShowAddresses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,10 @@ namespace Application.Services.CustomerServices.CustomerFacade
         IAddNewAddressService AddAddress { get; }
 
         IGetInfoService GetInfo { get; }
+
+        IGetAddressService GetAddress { get; }
+
+        IDivisionCountryService GetDivisionCountry { get; }
     }
 
     public class CustomerService : ICustomerService
@@ -37,5 +42,16 @@ namespace Application.Services.CustomerServices.CustomerFacade
         private IGetInfoService getInfo;
         public IGetInfoService GetInfo =>
             getInfo ?? new GetInfoService(identityDb,db);
+
+
+
+        private IGetAddressService getAddress;
+        public IGetAddressService GetAddress =>
+            getAddress ?? new GetAddressService(db);
+
+
+        private IDivisionCountryService getDivisionCountry;
+        public IDivisionCountryService GetDivisionCountry =>
+            getDivisionCountry ?? new DivisionCountryService(db);
     }
 }

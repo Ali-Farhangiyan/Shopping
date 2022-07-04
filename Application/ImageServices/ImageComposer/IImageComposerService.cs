@@ -15,7 +15,7 @@ namespace Application.ImageServices.ImageComposer
     {
         public string Execute(string src)
         {
-            var uri = "https://localhost:7293/";
+            var uri = "http://staticfiles.thirtythreee.ir/";
             return uri + src;
         }
     }

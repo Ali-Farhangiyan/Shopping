@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -10,19 +10,23 @@
   "profiles": {
     "ShoppingUI": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7204;http://localhost:5204",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "ASPNETCORE_DETAILEDERRORS": "1"
+      },
+      "applicationUrl": "https://localhost:4800;http://localhost:4801",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "ASPNETCORE_DETAILEDERRORS": "1"
+      },
+      "applicationUrl": "http://thirtythree.ir"
     }
   }
 }

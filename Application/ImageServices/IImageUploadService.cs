@@ -19,7 +19,7 @@ namespace Application.ImageServices
     {
         public async Task<List<string>> Execute(List<IFormFile> files)
         {
-            var client = new RestClient("https://localhost:7293/api/image");
+            var client = new RestClient("http://staticfiles.thirtythreee.ir/api/image");
             var request = new RestRequest();
             request.Method = Method.Post;
 

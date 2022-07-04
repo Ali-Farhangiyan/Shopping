@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220704124737_addCityentity")]
+    partial class addCityentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 777, DateTimeKind.Local).AddTicks(7213));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 725, DateTimeKind.Local).AddTicks(4676));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -70,7 +72,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 777, DateTimeKind.Local).AddTicks(8945));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 725, DateTimeKind.Local).AddTicks(6404));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -119,7 +121,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 778, DateTimeKind.Local).AddTicks(822));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 725, DateTimeKind.Local).AddTicks(8229));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -164,9 +166,10 @@ namespace Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("CityName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("StateId")
+                    b.Property<int>("StateId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -185,6 +188,7 @@ namespace Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("StateName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -203,7 +207,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 778, DateTimeKind.Local).AddTicks(2806));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 725, DateTimeKind.Local).AddTicks(9653));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -245,7 +249,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 778, DateTimeKind.Local).AddTicks(5467));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 726, DateTimeKind.Local).AddTicks(2450));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -298,7 +302,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 778, DateTimeKind.Local).AddTicks(7845));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 726, DateTimeKind.Local).AddTicks(4524));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -331,7 +335,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 779, DateTimeKind.Local).AddTicks(27));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 726, DateTimeKind.Local).AddTicks(6294));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -383,7 +387,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 779, DateTimeKind.Local).AddTicks(2159));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 726, DateTimeKind.Local).AddTicks(8288));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -429,7 +433,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 779, DateTimeKind.Local).AddTicks(3879));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 727, DateTimeKind.Local).AddTicks(52));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -469,7 +473,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 779, DateTimeKind.Local).AddTicks(5425));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 727, DateTimeKind.Local).AddTicks(2418));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -516,7 +520,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 779, DateTimeKind.Local).AddTicks(7600));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 727, DateTimeKind.Local).AddTicks(4582));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -573,7 +577,7 @@ namespace Persistence.Migrations
                     b.Property<DateTime>("InsertTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 33, 8, 780, DateTimeKind.Local).AddTicks(1028));
+                        .HasDefaultValue(new DateTime(2022, 7, 4, 17, 17, 37, 727, DateTimeKind.Local).AddTicks(7985));
 
                     b.Property<bool>("IsRemoved")
                         .ValueGeneratedOnAdd()
@@ -633,7 +637,9 @@ namespace Persistence.Migrations
                 {
                     b.HasOne("Domain.Entites.DivisionCountry.State", "State")
                         .WithMany("Cities")
-                        .HasForeignKey("StateId");
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("State");
                 });

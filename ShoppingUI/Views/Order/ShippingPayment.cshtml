@@ -1,0 +1,51 @@
+﻿@using ShoppingUI.Models.ViewModels
+@model OrderViewModels
+
+<div class="container">
+    <form asp-action="ShippingPayment" asp-controller="Order" method="post">
+        <div class="row">
+            <h3>Select a address: </h3>
+            @foreach (var item in Model.Addresses)
+            {
+                
+                <div class="col-sm-4 border">
+                    <input type="radio"  name="addressId" value="@item.Id">
+                    <hr />
+                    <h5>@item.State - @item.City</h5>
+                    <h6>@item.PostalCode</h6>
+                    <p>@item.CompleteAddress</p>
+                </div>
+            }
+        </div>
+
+        <hr />
+        <br />
+
+        <div class="row">
+            @foreach (var item in Model.Basket.BasketItems)
+            {
+                <div class="col-sm-4">
+                    <img src="@item.ImageUrl" width="200ps" height="200px">
+                    <p>Price: @item.Price</p>
+                    <p>Quantity: @item.Quantity</p>
+                </div>
+            }
+        </div>
+
+        <hr />
+        <br />
+
+        <div class="row">
+            <h3>Select Payment Methode:</h3>
+            <label for="online">Online</label>
+            <input type="radio" class="btn btn-outline-info d-inline-block" id="online" name="paymentMethode" value="OnlinePayment" />
+
+            <label for="onSpot">OnSpot</label>
+            <input type="radio" class="btn btn-outline-info d-inline-block" id="onSpot" name="paymentMethode" value="PaymentOnTheSpot" />
+        </div>
+
+        <div class="row">
+            <button type="submit" class="btn btn-danger form-control">Go To Pay</button>
+        </div>
+    </form>
+</div>

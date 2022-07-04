@@ -1,6 +1,8 @@
-﻿using Application.Services.CustomerServices.AddNewAddress;
+﻿using Application.Interfaces;
+using Application.Services.CustomerServices.AddNewAddress;
 using Application.Services.CustomerServices.CustomerFacade;
-using Iran.AspNet.CountryDivisions;
+using Domain.Entites.DivisionCountry;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,13 +17,10 @@ namespace ShoppingUI.Areas.Customers.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService customerService;
-        private readonly IIranCountryDivisions iranCountryDivisions;
 
-        public CustomerController(ICustomerService customerService
-            , IIranCountryDivisions iranCountryDivisions)
+        public CustomerController(ICustomerService customerService)
         {
             this.customerService = customerService;
-            this.iranCountryDivisions = iranCountryDivisions;
         }
         
         public async Task<IActionResult> Index()
@@ -31,20 +30,21 @@ namespace ShoppingUI.Areas.Customers.Controllers
             return View(user);
         }
 
+        public IActionResult Iran(string? ir)
+        {
+            return View(ir);
+        }
 
-        public async Task<IActionResult> AddAddress(string ostanId)
+        [HttpGet]
+        public async Task<IActionResult> AddAddress(int stateId)
         
         {
-            var states = await iranCountryDivisions.GetOstansAsync();
-            states = states.OrderBy(p => p.Name);
-            
-
             var data = new AddAddressDto
             {
                 Citites =
-                new SelectList(await iranCountryDivisions.GetShahrestansAsync(p => p.OstanId == ostanId), "Id", "Name"),
+                new SelectList(await customerService.GetDivisionCountry.GetAllCityAsync(stateId), "Id", "CityName"),
                 States =
-                new SelectList(states, "Id", "Name")
+                new SelectList(await customerService.GetDivisionCountry.GetAllStateAsync(), "Id", "StateName")
             };
 
             data.UserId = ClaimUtility.GetUserId(User);
@@ -55,15 +55,8 @@ namespace ShoppingUI.Areas.Customers.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAddress(AddAddressDto address)
         {
-            var city = await iranCountryDivisions.GetShahrsAsync(p => p.id == address.City);
-            var state = await iranCountryDivisions.GetOstansAsync(p => p.Id == address.State);
-
-            address.City = city.FirstOrDefault().Name;
-            address.State = state.FirstOrDefault().Name;
-
 
             var result = await customerService.AddAddress.ExecuteAsync(address);
-
 
             if(result == true)
             {
@@ -74,17 +67,17 @@ namespace ShoppingUI.Areas.Customers.Controllers
         }
 
         
-        public async Task<JsonResult> ShowCities(string ostanId)
+        public async Task<JsonResult> ShowCities(int stateId)
         {
-            var cities = await iranCountryDivisions.GetShahrsAsync(p => p.OstanId == ostanId);
+            var cities = await customerService.GetDivisionCountry.GetAllCityAsync(stateId);
 
             var list = new List<AddressViewModel>();
-            foreach (var item in cities.ToList().OrderBy(p => p.Name))
+            foreach (var item in cities.OrderBy(p => p.CityName))
             {
                 list.Add(new AddressViewModel
                 {
-                    Id = item.id,
-                    Name = item.Name
+                    Id = item.Id,
+                    Name = item.CityName
                 });
             }
 

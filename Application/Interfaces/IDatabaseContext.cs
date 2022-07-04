@@ -1,5 +1,7 @@
 ﻿using Domain.Entites.Baskets;
 using Domain.Entites.Customers;
+using Domain.Entites.DivisionCountry;
+using Domain.Entites.Orders;
 using Domain.Entites.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,9 +24,14 @@ namespace Application.Interfaces
         DbSet<Basket> Baskets { get; set; }
         DbSet<BasketItem> BasketItems { get; set; }
         DbSet<Address> Addresses { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderItem> OrderItems { get; set; }
+        DbSet<City> Cities { get; set; }
+        DbSet<State> States { get; set; }
 
 
         int SaveChanges();
-        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default);
     }
 }

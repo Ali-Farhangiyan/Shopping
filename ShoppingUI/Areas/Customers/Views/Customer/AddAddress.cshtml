@@ -83,6 +83,8 @@ $(document).ready(function() {
             let ostanId = $("#state").select2('data');
             ostanId = ostanId[0].id;
 
+            $("#City").val(null);
+
                 $("#City").select2({
                     placeholder: "Select City",
                     ajax: {
@@ -91,7 +93,7 @@ $(document).ready(function() {
                         data: function () {
                             var query =
                             {
-                                ostanId: ostanId,
+                                stateId: ostanId,
                             };
                             return query;
                         },

@@ -11,7 +11,8 @@ using Application.Services.BrandServices.BrandFacade;
 using Infrastructure.MappingProfiles;
 using Application.Services.BasketServices.BasketFacade;
 using Application.Services.CustomerServices.CustomerFacade;
-using Iran.AspNet.CountryDivisions.Helpers;
+
+using Application.Services.OrderServices.OrderFacade;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,13 +40,13 @@ builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
 builder.Services.AddIdentityService(builder.Configuration);
 
-builder.Services.AddIranCountryDivisions();
 
 
 
@@ -54,14 +55,16 @@ builder.Services.AddIranCountryDivisions();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//    //app.UseHsts();
+//}
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+//app.UseExceptionHandler("/Home/Error");
 app.UseStaticFiles();
 
 app.UseRouting();

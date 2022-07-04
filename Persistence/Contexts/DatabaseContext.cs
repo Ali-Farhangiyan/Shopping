@@ -2,6 +2,8 @@
 using Domain.Entites.Attributes;
 using Domain.Entites.Baskets;
 using Domain.Entites.Customers;
+using Domain.Entites.DivisionCountry;
+using Domain.Entites.Orders;
 using Domain.Entites.Products;
 using Microsoft.EntityFrameworkCore;
 using Persistence.EntityConfigurations.CategoryConfigurations;
@@ -26,6 +28,10 @@ namespace Persistence.Contexts
         public DbSet<Basket> Baskets { get; set; } = null!;
         public DbSet<BasketItem> BasketItems { get; set; } = null!;
         public DbSet<Address> Addresses { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public DbSet<City> Cities { get; set; } = null!;
+        public DbSet<State> States { get; set; } = null!;
 
         public DatabaseContext(DbContextOptions<DatabaseContext> Option) : base(Option) { }
 
@@ -33,6 +39,8 @@ namespace Persistence.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.HasDefaultSchema("dbo");
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
                 if (entityType.ClrType.GetCustomAttributes(typeof(AuditTableAttribute),true).Length > 0)
@@ -63,6 +71,9 @@ namespace Persistence.Contexts
 
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+
+            modelBuilder.Entity<Order>()
+                .OwnsOne(p => p.UserAddress);
 
 
             base.OnModelCreating(modelBuilder);

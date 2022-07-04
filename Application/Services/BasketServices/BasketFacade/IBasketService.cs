@@ -1,6 +1,7 @@
 ﻿using Application.ImageServices.FacadeImage;
 using Application.Interfaces;
 using Application.Services.BasketServices.AddItemToBasket;
+using Application.Services.BasketServices.GetBasketForUser;
 using Application.Services.BasketServices.GetOrCreateBasketForUser;
 using Application.Services.BasketServices.RemoveItemFromBasket;
 using Application.Services.BasketServices.SetQuantityForBasketItem;
@@ -23,6 +24,8 @@ namespace Application.Services.BasketServices.BasketFacade
         ISetQuantityForBasketItemService SetQuantity { get; }
 
         ITransferBasketService TransferBasket { get; }
+
+        IGetBasketForUserService GetBasket { get; }
     }
 
     public class BasketService : IBasketService
@@ -64,5 +67,11 @@ namespace Application.Services.BasketServices.BasketFacade
         private ITransferBasketService transferBasket;
         public ITransferBasketService TransferBasket =>
             transferBasket ?? new TransferBasketService(db);
+
+
+
+        private IGetBasketForUserService getBasket;
+        public IGetBasketForUserService GetBasket =>
+            getBasket ?? new GetBasketForUserService(db, imageService);
     }
 }

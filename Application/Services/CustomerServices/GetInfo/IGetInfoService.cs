@@ -36,7 +36,7 @@ namespace Application.Services.CustomerServices.GetInfo
                 FirstName = user.FullName.Split(" ").FirstOrDefault(),
                 LastName = user.FullName.Split(" ").LastOrDefault(),
                 PhoneNumber = user.PhoneNumber,
-                Addresses = await db.Addresses.Where(p => p.UserId == userId).Select(p => new GetAddressDto
+                Addresses = await db.Addresses.Where(p => p.UserId == userId).Select(p => new ShowAddressDto
                 {
                     PostalCode = p.PostalCode,
                     WholeAddress = $"{p.State} - {p.City} - {p.Street} - {p.Allay} - {p.Plaque}"
@@ -59,10 +59,10 @@ namespace Application.Services.CustomerServices.GetInfo
         public string Email { get; set; }
 
 
-        public List<GetAddressDto> Addresses { get; set; }
+        public List<ShowAddressDto> Addresses { get; set; }
     }
 
-    public class GetAddressDto
+    public class ShowAddressDto
     {
         public string PostalCode { get; set; }
 
