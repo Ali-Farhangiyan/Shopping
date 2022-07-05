@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.ImageServices.FacadeImage;
+using Application.Interfaces;
 using Application.Services.CustomerServices.AddNewAddress;
 using Application.Services.CustomerServices.DivisionCountry;
 using Application.Services.CustomerServices.GetAddress;
@@ -26,11 +27,13 @@ namespace Application.Services.CustomerServices.CustomerFacade
     {
         private readonly IDatabaseContext db;
         private readonly IIdentityDatabaseContext identityDb;
+        private readonly IImageService imageService;
 
-        public CustomerService(IDatabaseContext db, IIdentityDatabaseContext identityDb)
+        public CustomerService(IDatabaseContext db, IIdentityDatabaseContext identityDb, IImageService imageService)
         {
             this.db = db;
             this.identityDb = identityDb;
+            this.imageService = imageService;
         }
 
         private IAddNewAddressService addAddress;
@@ -41,7 +44,7 @@ namespace Application.Services.CustomerServices.CustomerFacade
 
         private IGetInfoService getInfo;
         public IGetInfoService GetInfo =>
-            getInfo ?? new GetInfoService(identityDb,db);
+            getInfo ?? new GetInfoService(identityDb,db,imageService);
 
 
 

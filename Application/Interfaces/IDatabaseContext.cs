@@ -28,7 +28,7 @@ namespace Application.Interfaces
         DbSet<OrderItem> OrderItems { get; set; }
         DbSet<City> Cities { get; set; }
         DbSet<State> States { get; set; }
-
+        DbSet<Favorite> Favorites { get; set; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,

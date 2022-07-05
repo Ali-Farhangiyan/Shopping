@@ -32,6 +32,7 @@ namespace Persistence.Contexts
         public DbSet<OrderItem> OrderItems { get; set; } = null!;
         public DbSet<City> Cities { get; set; } = null!;
         public DbSet<State> States { get; set; } = null!;
+        public DbSet<Favorite> Favorites { get; set; } = null!;
 
         public DatabaseContext(DbContextOptions<DatabaseContext> Option) : base(Option) { }
 

@@ -11,7 +11,7 @@ namespace Application.Services.ProductServices.PDPProduct
 {
     public interface IPDPProductService
     {
-        Task<PDPProductDto> ExecuteAsync(string? Slug);
+        Task<PDPProductDto> ExecuteAsync(string? Slug, string? userId);
     }
 
     public class PDPProductService : IPDPProductService
@@ -26,16 +26,25 @@ namespace Application.Services.ProductServices.PDPProduct
         }
 
 
-        public async Task<PDPProductDto> ExecuteAsync(string? Slug)
+        public async Task<PDPProductDto> ExecuteAsync(string? Slug,string? userId)
         {
             var product = await db.Products.FirstOrDefaultAsync(p => p.Slug == Slug);
+            if (product is null) return null!;
+            var isfav = false;
+            if(userId is not null)
+            {
+                isfav = db.Favorites
+                    .Include(p => p.Products)
+                    .Where(p => p.UserId == userId)
+                    .FirstOrDefault().Products.Any(p => p.Id == product.Id);
+            }
 
             var images = await db.Images
                 .Include(i => i.Product)
                 .Where(i => i.ProductId == product.Id)
                 .Select(i => new ImagePDPDto
                 {
-                    ImageUrl = imageService.ImageComposer.Execute(i.Src)
+                    ImageUrl = imageService.ImageComposer.Execute(i.Src ?? "")
                 })
                 .ToListAsync();
 
@@ -45,28 +54,30 @@ namespace Application.Services.ProductServices.PDPProduct
                 .Select(c => new CommentPDPDto
                 {
                     Id = c.Id,
-                    Body = c.Body,
-                    Email = c.Email,
-                    Title = c.Title
+                    Body = c.Body ?? "",
+                    Email = c.Email ?? "",
+                    Title = c.Title ?? ""
                 }).ToListAsync();
 
 
             var categories = new ListOfCategory
             {
-                MainCategory = db.Categories.Where(c => c.Id == product.CategoryId).FirstOrDefault().Slug,
+                MainCategory = db.Categories.Where(c => c.Id == product.CategoryId)?.FirstOrDefault()?.Slug ?? "",
             };
 
 
             var productDto = new PDPProductDto
             {
                 Id = product.Id,
+                Slug = product.Slug,
                 Name = product.Name,
                 Price = product.Price,
-                MetaTitle = product.MetaTitle,
-                MetaDescription = product.MetaDescription,
-                Description = product.Description,
+                MetaTitle = product?.MetaTitle ?? "",
+                MetaDescription = product?.MetaDescription ?? "",
+                Description = product?.Description ?? "",
                 Comments = comments,
                 Images = images,
+                IsFavorite = (isfav) ? true : false
 
             };
 
@@ -80,6 +91,8 @@ namespace Application.Services.ProductServices.PDPProduct
     {
         public int Id { get; set; }
 
+        public string Slug { get; set; }
+
         public string Name { get; set; }
 
         public int Price { get; set; }
@@ -90,6 +103,7 @@ namespace Application.Services.ProductServices.PDPProduct
 
         public string Description { get; set; }
 
+        public bool IsFavorite { get; set; } 
 
         public List<CommentPDPDto> Comments { get; set; }
         public ICollection<IGrouping<FeaturePDPDto,string>> Features { get; set; }

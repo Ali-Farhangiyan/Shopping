@@ -34,6 +34,10 @@ namespace Domain.Entites.Products
 
         public int BrandId { get; set; }
 
+        public int FavoriteCount { get; set; }
+
+        public ICollection<Favorite>? Favorites { get; set; }
+
         public ICollection<Image>? Images { get; set; }
 
         public ICollection<Tags>? Tags { get; set; }

@@ -43,7 +43,7 @@ namespace ShoppingUI.Controllers
 
             var orderid = await orderService.CreateOrder.ExecuteAsync(userId, addressId, paymentMethode);
 
-            return View();
+            return RedirectToAction(nameof(ShippingPayment));
         }
     }
 }

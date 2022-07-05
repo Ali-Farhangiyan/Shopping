@@ -19,11 +19,19 @@
             <input type="hidden" name="quantity" value="1" />
             <input type="submit" value="Add To Basket" class="btn btn-warning" />
         </form>
+
+        <br />
+
     </div>
 
     <br /><hr /><br />
 
     <div class="row">
-
+        <form action="/favo" method="post">
+            <label class="form-check-label">IsFavorite</label>
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <input type="hidden" name="slug" value="@Model.Slug" />
+           <input type="checkbox" asp-for="IsFavorite" class="form-check-input" onclick="submit()"/>
+        </form>
     </div>
 </div>
