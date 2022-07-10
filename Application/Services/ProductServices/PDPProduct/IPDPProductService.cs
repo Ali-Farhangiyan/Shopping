@@ -1,5 +1,6 @@
 ﻿using Application.ImageServices.FacadeImage;
 using Application.Interfaces;
+using Domain.Entites.Comments;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -48,21 +49,26 @@ namespace Application.Services.ProductServices.PDPProduct
                 })
                 .ToListAsync();
 
+
             var comments = await db.Comments
                 .Include(c => c.Product)
                 .Where(c => c.ProductId == product.Id)
                 .Select(c => new CommentPDPDto
                 {
                     Id = c.Id,
-                    Body = c.Body ?? "",
-                    Email = c.Email ?? "",
-                    Title = c.Title ?? ""
-                }).ToListAsync();
+                    Body = c.Body,
+                    Email = c.UserId,
+                    StatusOfComment = c.StatusOfComment
+                })
+                .Where(c => c.StatusOfComment == StatusOfComment.Accepted)
+                .ToListAsync();
 
 
             var categories = new ListOfCategory
             {
-                MainCategory = db.Categories.Where(c => c.Id == product.CategoryId)?.FirstOrDefault()?.Slug ?? "",
+                MainCategory = db.Categories
+                .Where(c => c.Id == product.CategoryId)?
+                .FirstOrDefault()?.Slug ?? "",
             };
 
 
@@ -73,9 +79,9 @@ namespace Application.Services.ProductServices.PDPProduct
                 Name = product.Name,
                 Price = product.Price,
                 MetaTitle = product?.MetaTitle ?? "",
+                Comments = comments,
                 MetaDescription = product?.MetaDescription ?? "",
                 Description = product?.Description ?? "",
-                Comments = comments,
                 Images = images,
                 IsFavorite = (isfav) ? true : false
 
@@ -119,10 +125,12 @@ namespace Application.Services.ProductServices.PDPProduct
 
         public string Email { get; set; }
 
-        public string Title { get; set; }
-
         public string Body { get; set; }
+
+        public StatusOfComment StatusOfComment { get; set; }
     }
+
+
 
     public class FeaturePDPDto
     {

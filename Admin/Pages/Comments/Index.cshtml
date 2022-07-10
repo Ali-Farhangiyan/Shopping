@@ -1,0 +1,70 @@
+﻿@page
+@model Admin.Pages.Comments.IndexModel
+@{
+    var tim = Request.Query["Timing"];
+    var sta = Request.Query["StatusOfCommentDto"];
+}
+
+<ul class="nav nav-pills">
+
+    <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-StatusOfCommentDto="4" asp-route-Timing="@tim" class="nav-link active" aria-current="page" >All</a>
+  </li>
+  <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-StatusOfCommentDto="0" asp-route-Timing="@tim" class="nav-link active" aria-current="page" >Waiting</a>
+  </li>
+  <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-StatusOfCommentDto="1" asp-route-Timing="@tim" class="nav-link active" aria-current="page" >Accepted</a>
+  </li>
+  <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-StatusOfCommentDto="2" asp-route-Timing="@tim" class="nav-link active" aria-current="page" >Rejected</a>
+  </li>
+</ul>
+
+<ul class="nav nav-pills">
+  <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-Timing="0" asp-route-StatusOfCommentDto="@sta" class="nav-link active" aria-current="page" >Newest</a>
+  </li>
+  <li class="nav-item m-2">
+    <a asp-page="Index" asp-route-Timing="1" asp-route-StatusOfCommentDto="@sta" class="nav-link active" aria-current="page" >Oldest</a>
+  </li>
+</ul>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Product</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.GetComments)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Email</td>
+                    <td>@item.NameProduct</td>
+                    @if (@item.Status == Domain.Entites.Comments.StatusOfComment.Accepted)
+                    {
+                        <td class="text-success">@item.Status.ToString()</td>
+                    }
+                    else if (@item.Status == Domain.Entites.Comments.StatusOfComment.Waiting)
+                    {
+                        <td class="text-warning">@item.Status.ToString()</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger">@item.Status.ToString()</td>
+                    }
+                    
+                    <td>
+                        <a asp-page="Verify" asp-route-Id="@item.Id">Edit Status Comment</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

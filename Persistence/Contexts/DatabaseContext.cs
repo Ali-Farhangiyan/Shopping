@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces;
 using Domain.Entites.Attributes;
 using Domain.Entites.Baskets;
+using Domain.Entites.Comments;
 using Domain.Entites.Customers;
 using Domain.Entites.DivisionCountry;
 using Domain.Entites.Orders;
@@ -20,7 +21,6 @@ namespace Persistence.Contexts
     {
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Brand> Brands { get; set; } = null!;
-        public DbSet<Comment> Comments { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
         public DbSet<Feature> Features { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;
@@ -33,6 +33,8 @@ namespace Persistence.Contexts
         public DbSet<City> Cities { get; set; } = null!;
         public DbSet<State> States { get; set; } = null!;
         public DbSet<Favorite> Favorites { get; set; } = null!;
+
+        public DbSet<Comment> Comments { get; set; } = null!;
 
         public DatabaseContext(DbContextOptions<DatabaseContext> Option) : base(Option) { }
 

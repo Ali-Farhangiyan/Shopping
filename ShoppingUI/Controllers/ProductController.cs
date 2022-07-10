@@ -1,4 +1,6 @@
 ﻿
+using Application.Services.CommentServices.AddNewComment;
+using Application.Services.CommentServices.CommentFacade;
 using Application.Services.ProductServices.PLPProduct;
 using Application.Services.ProductServices.ProductFacade;
 using Microsoft.AspNetCore.Authorization;
@@ -10,10 +12,12 @@ namespace ShoppingUI.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService productService;
+        private readonly ICommentService commentService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ICommentService commentService)
         {
             this.productService = productService;
+            this.commentService = commentService;
         }
 
 
@@ -54,6 +58,18 @@ namespace ShoppingUI.Controllers
                 await productService.FavoriteProducts.RemoveFromFavoriteAsync(userId, productId);
                 return RedirectToAction(nameof(Details), new { Slug = slug });
             }
+        }
+
+
+        [Authorize]
+        [Route("~/addcomment")]
+        [HttpPost]
+        public async Task<IActionResult> AddComment(AddNewCommentDto comment, string slug)
+        {
+            var userid = ClaimUtility.GetUserId(User);
+            await commentService.AddComment.ExecuteAsync(comment, userid);
+
+            return RedirectToAction(nameof(Details), new { Slug = slug });
         }
 
         

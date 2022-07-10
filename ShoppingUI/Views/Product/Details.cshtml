@@ -1,6 +1,10 @@
 ﻿@using Application.Services.ProductServices.PDPProduct
 @model PDPProductDto
 
+@{
+    var idproduct = Model.Id;
+}
+
 
 <div class="container">
     <div class="row">
@@ -34,4 +38,25 @@
            <input type="checkbox" asp-for="IsFavorite" class="form-check-input" onclick="submit()"/>
         </form>
     </div>
+
+    <div class="row">
+        <form action="/addcomment" method="post">
+            <textarea name="Body"></textarea>
+            <input type="hidden" name="Slug" value="@Model.Slug" />
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <button type="submit" class="btn btn-secondary">Send Comment</button>
+        </form>
+    </div>
+
+    @if(Model.Comments.Count > 0)
+    {
+        @foreach (var item in Model.Comments)
+        {
+            <div class="row border p-2">
+                <h3>@item.Email</h3>
+                <p>@item.Body</p>
+                
+            </div>
+        }
+    }
 </div>

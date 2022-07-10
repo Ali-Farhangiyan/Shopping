@@ -13,6 +13,7 @@ using Application.Services.BasketServices.BasketFacade;
 using Application.Services.CustomerServices.CustomerFacade;
 
 using Application.Services.OrderServices.OrderFacade;
+using Application.Services.CommentServices.CommentFacade;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddScoped<IBrandService, BrandService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 

@@ -1,0 +1,22 @@
+﻿@page
+@model Admin.Pages.Comments.VerifyModel
+@{
+
+}
+
+
+<div class="container">
+    <div class="row">
+        <p>@Model.GetCommentById.Email</p>
+        <p>@Model.GetCommentById.NameProduct</p>
+        <p>@Model.GetCommentById.Status.ToString()</p>
+    </div>
+
+    <div class="row">
+        <form asp-page="Verify">
+            <input type="hidden" name="CommentId" value="@Model.GetCommentById.Id" />
+            <button type="submit" name="StatusAccept" value="Accepted" class="btn btn-success">Accepted</button>
+            <button type="submit" name="StatusAccept" value="Rejected" class="btn btn-danger">Rejected</button>
+        </form>
+    </div>
+</div>
